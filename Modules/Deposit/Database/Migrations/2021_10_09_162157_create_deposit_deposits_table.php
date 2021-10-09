@@ -15,7 +15,13 @@ class CreateDepositDepositsTable extends Migration
     {
         Schema::create('deposit_deposits', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')->references('id')->on('account_accounts');
+            $table->unsignedBigInteger('approved_by')->nullable();
+            $table->foreign('approved_by')->references('id')->on('users');
+            $table->decimal('amount',10,2)->default(0);
+            $table->boolean('approved')->default(0);
+            $table->string('image',255);
             $table->timestamps();
         });
     }
