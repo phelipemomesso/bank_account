@@ -4,6 +4,7 @@ namespace Modules\Deposit\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Deposit\Repositories;
 
 class DepositServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,7 @@ class DepositServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(Repositories\DepositRepository::class, Repositories\DepositRepositoryEloquent::class);
     }
 
     /**
