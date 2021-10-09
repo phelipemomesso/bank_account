@@ -30,7 +30,7 @@ class Account extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'balance' => 'balance',
+        'balance' => 'decimal:2',
     ];
 
     protected static function newFactory()

@@ -2,9 +2,13 @@
 
 namespace Modules\Account\Http\Controllers;
 
+use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Account\Entities\Account;
+use Modules\Account\Services\AccountService;
 
 class AccountController extends Controller
 {
@@ -14,6 +18,8 @@ class AccountController extends Controller
      */
     public function index()
     {
+        $teste = new AccountService();
+        dd(Account::factory()->create());
         return view('account::index');
     }
 

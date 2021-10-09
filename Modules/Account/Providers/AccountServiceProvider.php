@@ -4,6 +4,7 @@ namespace Modules\Account\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Account\Repositories;
 
 class AccountServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,7 @@ class AccountServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(Repositories\AccountRepository::class, Repositories\AccountRepositoryEloquent::class);
     }
 
     /**
