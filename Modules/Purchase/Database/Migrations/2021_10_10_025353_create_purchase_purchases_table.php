@@ -15,7 +15,10 @@ class CreatePurchasePurchasesTable extends Migration
     {
         Schema::create('purchase_purchases', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')->references('id')->on('account_accounts');
+            $table->string('description');
+            $table->decimal('amount',10,2)->default(0);
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 namespace Modules\Purchase\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Account\Entities\Account;
 
 class PurchaseFactory extends Factory
 {
@@ -19,8 +20,10 @@ class PurchaseFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
+       return [
+            'account_id' => Account::factory()->create(),
+            'description' => $this->faker->words(3, true),
+            'amount' => $this->faker->randomFloat(2),
         ];
     }
 }
