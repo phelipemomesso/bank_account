@@ -1,4 +1,5 @@
 {
     "Account": true,
-    "Deposit": true
+    "Deposit": true,
+    "Purchase": true
 }
