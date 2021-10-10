@@ -26,6 +26,7 @@ class DepositFactory extends Factory
         return [
             'account_id' => Account::factory()->create(),
             'approved_by' => $approvedBy,
+            'description' => $this->faker->words(3, true),
             'amount' => $this->faker->randomFloat(2),
             'approved' => $approved,
             'image' => $this->faker-> numerify('check-value-####').'.jpg'

@@ -57,7 +57,7 @@ class DepositServiceTest extends TestCase
     private function dataStructure()
     {
         return [
-            'account_id', 'approved_by', 'amount', 'approved', 'image', 'created_at', 'updated_at',
+            'account_id', 'approved_by', 'description', 'amount', 'approved', 'image', 'created_at', 'updated_at',
         ];
     }
 
@@ -74,6 +74,7 @@ class DepositServiceTest extends TestCase
             $account = $this->accountService->createAccount($user);
         }
         $data = [
+            'description' => 'Test deposit',
             'amount' => 10,
             'image' => UploadedFile::fake()->image('avatar.jpg')
         ];

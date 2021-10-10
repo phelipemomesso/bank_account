@@ -44,7 +44,7 @@ class DepositTest extends TestCase
      */
     public function testItCanSpecifyFillableFields(): void
     {
-        $fillable = ['account_id', 'approved_by', 'amount', 'approved', 'image'];
+        $fillable = ['account_id', 'approved_by', 'description', 'amount', 'approved', 'image'];
         $this->assertTrue($fillable == $this->model->getFillable());
     }
 

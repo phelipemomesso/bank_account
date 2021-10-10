@@ -21,7 +21,7 @@ class Deposit extends Model
      *
      * @var array
      */
-    protected $fillable = ['account_id', 'approved_by', 'amount', 'approved', 'image'];
+    protected $fillable = ['account_id', 'approved_by', 'description', 'amount', 'approved', 'image'];
 
      /**
      * The attributes that should be cast to native types.
@@ -31,6 +31,7 @@ class Deposit extends Model
     protected $casts = [
         'account_id' => 'integer',
         'approved_by' => 'integer',
+        'description' => 'string',
         'amount' => 'decimal:2',
         'approved' => 'boolean',
         'image' => 'string',

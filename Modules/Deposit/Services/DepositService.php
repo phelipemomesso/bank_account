@@ -21,6 +21,7 @@ class DepositService extends BaseService
         $data = [
             'account_id' => $account->id,
             'approved_by' => null,
+            'description' => $attributes['description'],
             'amount' => $attributes['amount'],
             'approved' => 0,
             'image' => $this->uploadCheckImage($attributes['image'])
