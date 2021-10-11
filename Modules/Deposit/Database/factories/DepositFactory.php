@@ -21,7 +21,7 @@ class DepositFactory extends Factory
      */
     public function definition()
     {
-        $approved = $this->faker->numberBetween(0,1);
+        $approved = $this->faker->numberBetween(0, 1);
         $approvedBy = $approved == 0 ? null :  User::factory()->create();
         return [
             'account_id' => Account::factory()->create(),
@@ -33,4 +33,3 @@ class DepositFactory extends Factory
         ];
     }
 }
-
