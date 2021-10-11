@@ -12,5 +12,5 @@
 */
 
 Route::prefix('account')->group(function () {
-    Route::get('/', 'AccountController@index');
+    Route::get('/', 'AccountController@index')->name('account.list');
 });

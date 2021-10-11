@@ -7,20 +7,26 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Inertia\Inertia;
 use Modules\Account\Entities\Account;
 use Modules\Account\Services\AccountService;
 
 class AccountController extends Controller
 {
+    public function __construct(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        $teste = new AccountService();
-        dd(Account::factory()->create());
-        return view('account::index');
+        $account = $this->accountService->hasAccount(auth()->user());
+        $data = $this->accountService->getTransactionsByAccount($account);
+        return Inertia::render('Account/List', ['data' => $data, 'account' => $account]);
     }
 
     /**

@@ -17,7 +17,7 @@ class CreateAccountAccountsTable extends Migration
             $table->integerIncrements('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->decimal('balance', 10,2)->default(0);
+            $table->decimal('balance', 10, 2)->default(0);
             $table->timestamps();
         });
     }

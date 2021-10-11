@@ -40,6 +40,7 @@ class AccountServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->bind(Repositories\AccountRepository::class, Repositories\AccountRepositoryEloquent::class);
+        $this->app->bind(Repositories\AccountTransactionRepository::class, Repositories\AccountTransactionRepositoryEloquent::class);
     }
 
     /**

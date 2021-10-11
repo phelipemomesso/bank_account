@@ -19,7 +19,7 @@ class CreateAccountTransactionsTable extends Migration
             $table->foreign('account_id')->references('id')->on('account_accounts');
             $table->string('description');
             $table->decimal('amount', 10, 2);
-            $table->char('type',1)->comment('C-Credit / D-Debit');
+            $table->char('type', 1)->comment('C-Credit / D-Debit');
             $table->timestamps();
         });
     }
