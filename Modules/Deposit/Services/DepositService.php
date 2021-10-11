@@ -3,6 +3,7 @@
 namespace Modules\Deposit\Services;
 
 use App\Service\BaseService;
+use Illuminate\Http\Request;
 use Modules\Account\Entities\Account;
 use Modules\Deposit\Entities\Deposit;
 use Modules\Deposit\Repositories\DepositRepository;
@@ -24,21 +25,30 @@ class DepositService extends BaseService
             'description' => $attributes['description'],
             'amount' => $attributes['amount'],
             'approved' => 0,
-            'image' => $this->uploadCheckImage($attributes['image'])
+            'image' => $this->uploadCheckImage($attributes['check_image'])
         ];
         return $this->repository->create($data);
     }
 
-    private function uploadCheckImage($image): ?string {
+    private function uploadCheckImage($image): ?string
+    {
         if (isset($image) && !empty($image)) {
             $name = uniqid(date('HisYmd'));
             $extension = $image->extension();
             $nameFile = "{$name}.{$extension}";
-            $upload = $image->storeAs('deposits', $nameFile);
-            if (!$upload)
+            $upload = $image->move(public_path('uploads/deposits/'), $nameFile);
+            if (!$upload) {
                 return false;
-            return $upload;
+            }
+            return $nameFile;
         }
         return null;
+    }
+
+    public function doAprrove(array $attributes): Deposit
+    {
+        $data['approved_by'] = auth()->user()->id;
+        $data['approved'] = $attributes['approved'];
+        return $this->repository->update($data, $attributes['id']);
     }
 }

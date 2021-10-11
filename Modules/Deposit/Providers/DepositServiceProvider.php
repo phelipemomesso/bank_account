@@ -53,7 +53,8 @@ class DepositServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 
@@ -64,7 +65,7 @@ class DepositServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
+        /*$viewPath = resource_path('views/modules/' . $this->moduleNameLower);
 
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
@@ -72,7 +73,7 @@ class DepositServiceProvider extends ServiceProvider
             $sourcePath => $viewPath
         ], ['views', $this->moduleNameLower . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);*/
     }
 
     /**

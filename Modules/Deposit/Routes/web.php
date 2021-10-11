@@ -11,6 +11,8 @@
 |
 */
 
-Route::prefix('deposit')->group(function() {
-    Route::get('/', 'DepositController@index');
+Route::prefix('deposit')->group(function () {
+    Route::get('/', 'DepositController@index')->name('deposit.list');
+    Route::post('store', 'DepositController@store')->name('deposit.store');
+    Route::put('approve/{id}', 'DepositController@approve')->name('deposit.approve');
 });

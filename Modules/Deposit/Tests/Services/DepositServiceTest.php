@@ -76,15 +76,13 @@ class DepositServiceTest extends TestCase
         $data = [
             'description' => 'Test deposit',
             'amount' => 10,
-            'image' => UploadedFile::fake()->image('avatar.jpg')
+            'check_image' => UploadedFile::fake()->image('avatar.jpg')
         ];
         $deposit = $this->service->makeDeposit($data, $account);
-        $updateBalance = $this->accountService->updateBalance($account, $data['amount'], 'C');
         $this->assertInstanceOf(User::class, $user);
         $this->assertInstanceOf(Account::class, $account);
         $this->assertInstanceOf(Deposit::class, $deposit);
-        $this->assertEquals(10,$deposit->amount);
-        $this->assertEquals(10,$updateBalance->balance);
+        $this->assertEquals(10, $deposit->amount);
     }
 
     /**
