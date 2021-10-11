@@ -20,9 +20,9 @@ class CreateDepositDepositsTable extends Migration
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->foreign('approved_by')->references('id')->on('users');
             $table->string('description');
-            $table->decimal('amount',10,2)->default(0);
+            $table->decimal('amount', 10, 2)->default(0);
             $table->boolean('approved')->default(0);
-            $table->string('image',255);
+            $table->string('image', 255);
             $table->timestamps();
         });
     }
