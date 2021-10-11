@@ -26,4 +26,3 @@ class AccountFactory extends Factory
         ];
     }
 }
-

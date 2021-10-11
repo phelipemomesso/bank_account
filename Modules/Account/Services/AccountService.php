@@ -21,25 +21,29 @@ class AccountService extends BaseService
      */
     protected $repository = AccountRepository::class;
 
-    public function hasAccount(User $user) {
+    public function hasAccount(User $user)
+    {
         $account = $this->repository->findByField('user_id', $user->id);
-        if ($account->isNotEmpty())
-            return $account;
+        if ($account->isNotEmpty()) {
+            return $account[0];
+        }
         return false;
     }
 
-    public function createAccount(User $user):Account {
+    public function createAccount(User $user):Account
+    {
         return $this->repository->create([
            'user_id' => $user->id,
            'balance' => 0
        ]);
     }
 
-    public function isBalanceEnough() {
-
+    public function isBalanceEnough()
+    {
     }
 
-    public function updateBalance(Account $account, float $amount, string $operation): Account {
+    public function updateBalance(Account $account, float $amount, string $operation): Account
+    {
         $value = $operation === self::DEBIT ? $account->balance - $amount :  $account->balance + $amount;
         return $this->repository->update(['balance'=>$value], $account->id);
     }

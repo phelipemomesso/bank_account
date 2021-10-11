@@ -23,11 +23,11 @@ class Account extends Model
      */
     protected $fillable = ['user_id', 'balance'];
 
-     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    /**
+    * The attributes that should be cast to native types.
+    *
+    * @var array
+    */
     protected $casts = [
         'user_id' => 'integer',
         'balance' => 'decimal:2',
