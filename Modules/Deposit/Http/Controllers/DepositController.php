@@ -24,13 +24,14 @@ class DepositController extends Controller
      */
     public function index()
     {
+        $account = null;
         if (!auth()->user()->is_admin) {
             $account = $this->accountService->hasAccount(auth()->user());
             $data = $this->depositService->findByField('account_id', $account->id);
         } else {
             $data = $this->depositService->findWhere(['approved_by'=>null]);
         }
-        return Inertia::render('Deposit/List', ['data' => $data]);
+        return Inertia::render('Deposit/List', ['data' => $data, 'account' => $account]);
     }
 
     /**
@@ -68,6 +69,7 @@ class DepositController extends Controller
         if ($deposit->approved === true) {
             $account = $this->accountService->find($request->account_id);
             $updateBalance = collect($this->accountService->updateBalance($account, $request->amount, 'C'));
+            $this->accountService->createTransaction($deposit->toArray(), 'C');
         }
         return redirect()->back()->with('message', 'Successful Update !');
     }

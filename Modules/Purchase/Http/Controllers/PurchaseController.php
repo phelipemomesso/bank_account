@@ -26,7 +26,7 @@ class PurchaseController extends Controller
     {
         $account = $this->accountService->hasAccount(auth()->user());
         $data = $this->purchaseService->findByField('account_id', $account->id);
-        return Inertia::render('Purchase/List', ['data' => $data]);
+        return Inertia::render('Purchase/List', ['data' => $data, 'account' => $account]);
     }
 
     /**
@@ -44,6 +44,7 @@ class PurchaseController extends Controller
         if ($this->purchaseService->verifyBalance($account, $request->amount)) {
             $purchase = $this->purchaseService->makePurchase($request->all(), $account);
             $updateBalancePurchase = $this->accountService->updateBalance($account, $request->amount, 'D');
+            $this->accountService->createTransaction($purchase->toArray(), 'D');
             return redirect()->back()->with('message', 'Successful purchase!');
         }
         return redirect()->back()->withErrors('You do not have enough balance for this purchase!');
