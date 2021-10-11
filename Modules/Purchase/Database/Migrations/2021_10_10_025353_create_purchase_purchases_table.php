@@ -14,8 +14,8 @@ class CreatePurchasePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchase_purchases', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('account_id');
+            $table->integerIncrements('id');
+            $table->unsignedInteger('account_id');
             $table->foreign('account_id')->references('id')->on('account_accounts');
             $table->string('description');
             $table->decimal('amount', 10, 2)->default(0);
