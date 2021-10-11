@@ -85,7 +85,7 @@ class PurchaseServiceTest extends TestCase
         $dataDeposit = [
             'description' => 'Test deposit',
             'amount' => 100,
-            'image' => UploadedFile::fake()->image('avatar.jpg')
+            'check_image' => UploadedFile::fake()->image('avatar.jpg')
         ];
         $deposit = $this->depositService->makeDeposit($dataDeposit, $account);
         $updateBalance = $this->accountService->updateBalance($account, $dataDeposit['amount'], 'C');
@@ -95,25 +95,25 @@ class PurchaseServiceTest extends TestCase
         ];
         $purchase = null;
         $updateBalancePurchase = null;
-         if ($this->service->verifyBalance($updateBalance, $dataPurchase['amount'])) {
-             $purchase = $this->service->makePurchase($dataPurchase, $updateBalance);
-             $updateBalancePurchase = $this->accountService->updateBalance($updateBalance, $dataPurchase['amount'], 'D');
-         }
+        if ($this->service->verifyBalance($updateBalance, $dataPurchase['amount'])) {
+            $purchase = $this->service->makePurchase($dataPurchase, $updateBalance);
+            $updateBalancePurchase = $this->accountService->updateBalance($updateBalance, $dataPurchase['amount'], 'D');
+        }
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertInstanceOf(Account::class, $account);
         $this->assertInstanceOf(Purchase::class, $purchase);
-        $this->assertEquals(100, $deposit->amount,'Deposit value $100');
-        $this->assertEquals(100, $updateBalance->balance,'Balance equal $100');
+        $this->assertEquals(100, $deposit->amount, 'Deposit value $100');
+        $this->assertEquals(100, $updateBalance->balance, 'Balance equal $100');
         $this->assertEquals(90, $purchase->amount, 'Purchase value $90');
-        $this->assertEquals(10, $updateBalancePurchase->balance,'Balance equal $10');
+        $this->assertEquals(10, $updateBalancePurchase->balance, 'Balance equal $10');
     }
 
-     /**
-     * Test it can store a newly created entity in storage.
-     *
-     * @return void
-     */
+    /**
+    * Test it can store a newly created entity in storage.
+    *
+    * @return void
+    */
     public function testItMakePurchaseWithoutBalance(): void
     {
         $user = User::factory()->create();
@@ -125,7 +125,7 @@ class PurchaseServiceTest extends TestCase
         $dataDeposit = [
             'description' => 'Test deposit',
             'amount' => 100,
-            'image' => UploadedFile::fake()->image('avatar.jpg')
+            'check_image' => UploadedFile::fake()->image('avatar.jpg')
         ];
         $deposit = $this->depositService->makeDeposit($dataDeposit, $account);
         $updateBalance = $this->accountService->updateBalance($account, $dataDeposit['amount'], 'C');
@@ -135,15 +135,15 @@ class PurchaseServiceTest extends TestCase
             'amount' => 90,
         ];
         $purchase = null;
-         if ($this->service->verifyBalance($account, $dataPurchase['amount'])) {
-             $purchase = $this->service->makePurchase($dataPurchase, $account);
-             $updateBalancePurchase = $this->accountService->updateBalance($account, $dataPurchase['amount'], 'D');
-         }
+        if ($this->service->verifyBalance($account, $dataPurchase['amount'])) {
+            $purchase = $this->service->makePurchase($dataPurchase, $account);
+            $updateBalancePurchase = $this->accountService->updateBalance($account, $dataPurchase['amount'], 'D');
+        }
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertInstanceOf(Account::class, $account);
-        $this->assertEquals(100, $deposit->amount,'Deposit value $100');
-        $this->assertEquals(100, $updateBalance->balance,'Balance equal $100');
+        $this->assertEquals(100, $deposit->amount, 'Deposit value $100');
+        $this->assertEquals(100, $updateBalance->balance, 'Balance equal $100');
         $this->assertEquals(null, $purchase, 'Does not have enough balance');
     }
 

@@ -23,11 +23,11 @@ class Purchase extends Model
      */
     protected $fillable = ['account_id', 'description', 'amount'];
 
-     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    /**
+    * The attributes that should be cast to native types.
+    *
+    * @var array
+    */
     protected $casts = [
         'account_id' => 'integer',
         'description' => 'string',

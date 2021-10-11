@@ -20,11 +20,10 @@ class PurchaseFactory extends Factory
      */
     public function definition()
     {
-       return [
+        return [
             'account_id' => Account::factory()->create(),
             'description' => $this->faker->words(3, true),
             'amount' => $this->faker->randomFloat(2),
         ];
     }
 }
-

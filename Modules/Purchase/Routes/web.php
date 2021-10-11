@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('purchase')->group(function() {
-    Route::get('/', 'PurchaseController@index');
+Route::prefix('purchase')->group(function () {
+    Route::get('/', 'PurchaseController@index')->name('purchase.list');
+    Route::post('store', 'PurchaseController@store')->name('purchase.store');
 });

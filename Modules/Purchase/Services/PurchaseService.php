@@ -16,8 +16,11 @@ class PurchaseService extends BaseService
      */
     protected $repository = PurchaseRepository::class;
 
-    public function verifyBalance(Account $account, float $amount): bool {
-        if($account->balance < $amount) return false;
+    public function verifyBalance(Account $account, float $amount): bool
+    {
+        if ($account->balance < $amount) {
+            return false;
+        }
         return true;
     }
 

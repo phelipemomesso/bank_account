@@ -2,28 +2,31 @@
 
 namespace Modules\Purchase\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Inertia\Inertia;
+use Modules\Account\Services\AccountService;
+use Modules\Purchase\Services\PurchaseService;
 
 class PurchaseController extends Controller
 {
+    public function __construct(AccountService $accountService, PurchaseService $purchaseService)
+    {
+        $this->accountService = $accountService;
+        $this->purchaseService = $purchaseService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('purchase::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('purchase::create');
+        $account = $this->accountService->hasAccount(auth()->user());
+        $data = $this->purchaseService->findByField('account_id', $account->id);
+        return Inertia::render('Purchase/List', ['data' => $data]);
     }
 
     /**
@@ -33,47 +36,16 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('purchase::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('purchase::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $request->validate([
+            'description' => 'required|min:10',
+            'amount' => 'required|numeric|gt:0',
+        ]);
+        $account = $this->accountService->hasAccount(auth()->user());
+        if ($this->purchaseService->verifyBalance($account, $request->amount)) {
+            $purchase = $this->purchaseService->makePurchase($request->all(), $account);
+            $updateBalancePurchase = $this->accountService->updateBalance($account, $request->amount, 'D');
+            return redirect()->back()->with('message', 'Successful purchase!');
+        }
+        return redirect()->back()->withErrors('You do not have enough balance for this purchase!');
     }
 }
