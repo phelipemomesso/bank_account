@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use Modules\Account\Entities\Account;
 
 class RegisteredUserController extends Controller
 {
@@ -44,6 +45,11 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        Account::create([
+            'user_id' => $user->id,
+            'balance' => 0
         ]);
 
         event(new Registered($user));
