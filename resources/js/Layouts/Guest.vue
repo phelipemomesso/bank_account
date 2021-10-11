@@ -2,7 +2,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <Link href="/">
-                <BreezeApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="https://s5v7e6j9.stackpathcdn.com/wp-content/themes/marketing-site-stable-v1_3_7/assets/images/turnoverbnb.png" alt="">
             </Link>
         </div>
 
