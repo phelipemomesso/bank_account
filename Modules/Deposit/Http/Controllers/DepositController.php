@@ -48,7 +48,7 @@ class DepositController extends Controller
         ]);
         $account = $this->accountService->hasAccount(auth()->user());
         $deposit = $this->depositService->makeDeposit($request->all(), $account);
-        return redirect()->back()->with('message', 'Successful Deposit !');
+        return redirect()->back()->with('message', 'Successful Deposit! Wait for administrator approval.');
     }
 
     /**
