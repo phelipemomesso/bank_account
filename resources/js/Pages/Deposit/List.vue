@@ -6,7 +6,7 @@
           <h2 class="font-semibold text-xl text-gray-800 leading-tight"> Deposit</h2>
         </div>
         <div class="py-6 float-right" v-if="!$page.props.auth.user.is_admin">
-          Balance: {{ $page.props.account.balance }}
+          Balance: US$ {{ $page.props.account.balance }}
         </div>
         <p class="clear-both"></p>         
     </template>
@@ -37,7 +37,7 @@
               <tr v-for="row in data">
                 <td class="border px-4 py-2">{{ formatDate(row.created_at) }}</td>
                 <td class="border px-4 py-2">{{ row.description }}</td>
-                <td class="border px-4 py-2 text-center">$ {{ row.amount }}</td>
+                <td class="border px-4 py-2 text-center">US$ {{ row.amount }}</td>
                 <td class="border px-4 py-2 text-center">{{ row.approved ? 'Yes' : 'No' }}</td>
                 <td class="border px-4 py-2 text-center" v-if="$page.props.auth.user.is_admin">
                   <button @click="approve(row)" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" >Approve</button>
@@ -169,8 +169,12 @@ import dayjs from 'dayjs';
         }
       },
       save: function(data) {
-        this.$inertia.post('/deposit/store', data, {
-          forceFormData: true,
+        this.$inertia.post('/deposit/store', data, {  
+            forceFormData: true,
+            onSuccess: () => { 
+              this.reset();
+              this.closeModal();
+            },
         })
         this.editMode = false;
       },

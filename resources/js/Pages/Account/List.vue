@@ -7,7 +7,7 @@
           <h2 class="font-semibold text-xl text-gray-800 leading-tight"> My Transactions</h2>
         </div>
         <div class="py-6 float-right">
-          Balance: {{ $page.props.account.balance }}
+          Balance: US$ {{ $page.props.account.balance }}
         </div>
         <p class="clear-both"></p>         
     </template>
@@ -29,7 +29,7 @@
               <tr v-for="row in data">
                 <td class="border px-4 py-2">{{ formatDate(row.created_at) }}</td>
                 <td class="border px-4 py-2">{{ row.description }}</td>
-                <td class="border px-4 py-2">$ {{ row.amount }}</td>
+                <td class="border px-4 py-2">US$ {{ row.amount }}</td>
                 <td class="border px-4 py-2">{{ row.type == 'D'? 'Debit' : 'Credit' }}</td>
               </tr>
             </tbody>
